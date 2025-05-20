@@ -25,4 +25,4 @@ def tl(message: Optional[str] = Query(None)):
 
 @router.get("/tasks/tla")
 def tla(message: Optional[str] = Query(None)):
-    return {"tasks": get_task_roots_list_all(message)(message)}
+    return {"tasks": get_task_roots_list_all(message)}
