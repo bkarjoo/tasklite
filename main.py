@@ -1,16 +1,13 @@
 from fastapi import FastAPI
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from data.db_session import engine
 from data.models.alchemy_base import Base
-from config import DATABASE_URL
+from routes import task_routes
 
 app = FastAPI()
+app.include_router(task_routes.router)
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(bind=engine)
-
-# Create tables
 Base.metadata.create_all(bind=engine)
+
 
 @app.get("/")
 def read_root():

@@ -4,11 +4,6 @@ from sqlalchemy import Integer, String, Boolean, DateTime, ForeignKey
 from datetime import datetime
 from data.models.alchemy_base import Base
 
-if TYPE_CHECKING:
-    from data.models.tag_model import TaskTag
-    from data.models.task_note_model import TaskNote
-    from data.models.task_tag_link_model import TaskTagLink
-
 class Task(Base):
     __tablename__ = "tasks"
 
@@ -34,13 +29,7 @@ class Task(Base):
     deleted_date: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     sort_order: Mapped[int] = mapped_column(Integer, nullable=True)
 
-    tasktags: Mapped[List["TaskTag"]] = relationship("TaskTag", secondary="tasktaglinks", back_populates="tasks")
-    # Define the one-to-many relationship to TaskNote
-    tasknotes: Mapped[List["TaskNote"]] = relationship(
-        "TaskNote",
-        back_populates="task",
-        cascade="all, delete-orphan"
-    )
+
 
     def __repr__(self) -> str:
         return (

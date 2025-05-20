@@ -2,10 +2,9 @@ import logging
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 
+from data.models.task_model import Task
 from sqlalchemy import and_, exists, func, or_, select, update
 from sqlalchemy.orm import Session, aliased
-
-from data.models.task_model import Task
 
 
 def get_root_tasks(session):
